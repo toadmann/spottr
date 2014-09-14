@@ -16,7 +16,6 @@ if isfield(iminf,'DigitalCamera')
     tstamp = str2double(tstamp);   
 end
 idcode = [setname '#' num2str(idnum)];
-save([record_path filesep 'original.mat'], 'img', 'tstamp');
 
 function num = next_id(dname)
 contents = dir(dname);

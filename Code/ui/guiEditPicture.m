@@ -60,7 +60,7 @@ handles.code = getappdata(0,'current_code');
 
 record_path = getPath(handles.code);
 photodata = load([record_path filesep 'photodata.mat']);
-handles.orig = load([record_path filesep 'original.mat']);
+handles.base = loadBasePicture(handles.code);
 
 all_sets = getappdata(0,'all_sets');
 set(handles.dataset,'String',all_sets);
@@ -101,7 +101,7 @@ else
 end
 
 
-imshow(handles.orig.img,'Parent',handles.axes1);
+imshow(handles.base,'Parent',handles.axes1);
 
 % Update handles structure
 guidata(hObject, handles);
@@ -238,8 +238,6 @@ toebox = get(handles.toeclipid,'String');
 photodata.toeclip = ~isempty(toebox);
 photodata.toeclipid = str2double(toebox);
 
-orig = handles.orig;
-save([record_path filesep 'original.mat'], '-struct','orig');
 save([record_path filesep 'photodata.mat'],'-struct','photodata');
 
 %now move the file if necessary
@@ -260,9 +258,9 @@ function rotate_Callback(hObject, eventdata, handles)
 % hObject    handle to rotate (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles.orig.img = imrotate(handles.orig.img,90);
+handles.base = imrotate(handles.base,90);
 guidata(hObject,handles);
-imshow(handles.orig.img,'Parent',handles.axes1);
+imshow(handles.base,'Parent',handles.axes1);
 
 function toeclipid_Callback(hObject, eventdata, handles)
 % hObject    handle to toeclipid (see GCBO)

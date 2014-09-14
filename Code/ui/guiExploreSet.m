@@ -134,10 +134,9 @@ if length(codes)==1
     code = codes{1};
     set([group1,group2],'Enable','on');
     
-    record_path = getPath(code);
-    pic = load([record_path filesep 'original.mat']);
+    pic = loadBasePicture(code);
 
-    imshow(pic.img,'Parent',handles.axes1);
+    imshow(pic,'Parent',handles.axes1);
 
     handles.code = code;
     guidata(hObject,handles);

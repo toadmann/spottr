@@ -252,12 +252,10 @@ set(handles.usable, 'Value',handles.quality.usability);
 %Load a new picture
 function handles = load_picture(hObject, handles)
 record_path = getPath(handles.piccode);
-photodata = load([record_path filesep 'photodata.mat']);
-orig = load([record_path filesep 'original.mat']);
-
+photodata = loadPhotodata(handles.piccode);
+base = loadBasePicture(handles.piccode);
 
 set(handles.text2, 'String', photodata.photoid);
-
 handles.data = init_data();
 
 if exist([record_path filesep 'marks.mat'],'file')
@@ -300,7 +298,7 @@ if ~mark_done(handles)
 end
 
 
-handles.img = orig.img;
+handles.img = base;
 handles.cutoff_enabled = false;
 if(handles.quality.problems.cutoff)
     handles = pad(handles);

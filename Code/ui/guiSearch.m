@@ -70,8 +70,8 @@ if ~prog.spotFin
     uiwait(pth);
 end
 
-handles.img1 = loadPicture(handles.code1);
-imshow(handles.img1.img,'Parent',handles.axes1);
+handles.img1 = loadBasePicture(handles.code1);
+imshow(handles.img1,'Parent',handles.axes1);
 set(handles.text_pic1,'String',getLongInfo(handles.code1));
 handles.spot1 = load([getPath(handles.code1) filesep 'spotFin.mat']);
 imshow(handles.spot1.fin,'Parent',handles.axes3);
@@ -222,8 +222,8 @@ if noptions>0
 end
 
 function handles = showpic2(handles)
-handles.img2 = loadPicture(handles.code2);
-imshow(handles.img2.img,'Parent',handles.axes2);
+handles.img2 = loadBasePicture(handles.code2);
+imshow(handles.img2,'Parent',handles.axes2);
 set(handles.text_pic2,'String',getLongInfo(handles.code2));
 handles.spot2 = load([getPath(handles.code2) filesep 'spotFin.mat']);
 imshow(handles.spot2.fin,'Parent',handles.axes4);

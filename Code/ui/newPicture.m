@@ -250,12 +250,13 @@ set_path = [data_path filesep setname];
 
 idnum = next_id(set_path);
 idcode = [setname '#' num2str(idnum)];
-
 record_path = getPath(idcode);
-
 mkdir(set_path,num2str(idnum));
+
 orig = handles.orig;
-save([record_path filesep 'original.mat'], '-struct','orig');
+%save image as jpeg
+saveBasePicture(idcode, orig)
+%save([record_path filesep 'original.mat'], '-struct','orig');
 save([record_path filesep 'photodata.mat'],'-struct','photodata');
 
 setappdata(0,'current_code',idcode);
