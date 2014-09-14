@@ -1,6 +1,6 @@
 
 project_path = pwd;
-data_path = [projectpath filesep 'Data'];
+data_path = [project_path filesep 'Data'];
 
 if ~exist(data_path,'dir')
    mkdir(data_path);
