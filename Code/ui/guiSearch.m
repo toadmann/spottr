@@ -1,5 +1,8 @@
 function varargout = guiSearch(varargin)
 % GUISEARCH MATLAB code for guiSearch.fig
+%      UI for searching pictures
+%      Alan Schoen, 2014
+%
 %      GUISEARCH, by itself, creates a new GUISEARCH or raises the existing
 %      singleton*.
 %

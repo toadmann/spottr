@@ -1,6 +1,9 @@
-% saves a picture in the specified record
-function saveBasePicture(code, pic)
-
+% saves the base picture of the toad
+%    returns scale factor so that convertOrig2Base can adjust scale of marks
+%    that feature can be removed after all pictures are converted
+% Alan Schoen, 2014
+function scale_factor = saveBasePicture(code, pic)
+scale_factor = 1;
 record_path = getPath(code);
 
 % rescale if pic is big

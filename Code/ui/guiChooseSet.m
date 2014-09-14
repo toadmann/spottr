@@ -1,5 +1,8 @@
 function varargout = guiChooseSet(varargin)
 % GUICHOOSESET MATLAB code for guiChooseSet.fig
+%      UI for choosing the set to work with
+%      Alan Schoen, 2014
+%
 %      GUICHOOSESET, by itself, creates a new GUICHOOSESET or raises the existing
 %      singleton*.
 %

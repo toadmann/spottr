@@ -1,5 +1,8 @@
 function varargout = guiMain(varargin)
 % GUIMAIN MATLAB code for guiMain.fig
+%      UI for main screen
+%      Alan Schoen, 2014
+%
 %      GUIMAIN, by itself, creates a new GUIMAIN or raises the existing
 %      singleton*.
 %

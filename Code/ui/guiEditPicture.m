@@ -1,5 +1,8 @@
 function varargout = guiEditPicture(varargin)
 % GUIEDITPICTURE MATLAB code for guiEditPicture.fig
+%      UI for editing the details of a picture
+%      Alan Schoen, 2014
+%
 %      GUIEDITPICTURE, by itself, creates a new GUIEDITPICTURE or raises the existing
 %      singleton*.
 %

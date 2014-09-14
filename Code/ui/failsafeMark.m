@@ -1,3 +1,5 @@
+% Ensure that a picture has been maked
+% Alan Schoen, 2014
 function failsafeMark(code)
 prog = getDataProgress(code);
 if ~prog.spotFin

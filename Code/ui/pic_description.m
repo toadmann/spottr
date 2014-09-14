@@ -1,5 +1,6 @@
 % pic_description(pics,comparisons)
 % generates descriptions of pictures for display in UI
+% Alan Schoen, 2014
 function varargout = pic_description(pics,comparisons)
 if nargin>1
     iscomp = true;

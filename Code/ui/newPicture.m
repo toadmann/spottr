@@ -1,5 +1,8 @@
 function varargout = newPicture(varargin)
 % NEWPICTURE MATLAB code for newPicture.fig
+%      UI for adding a new picture
+%      Alan Schoen, 2014
+%
 %      NEWPICTURE, by itself, creates a new NEWPICTURE or raises the existing
 %      singleton*.
 %

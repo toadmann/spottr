@@ -1,5 +1,8 @@
 function varargout = guiExploreSet(varargin)
 % GUIEXPLORESET MATLAB code for guiExploreSet.fig
+%      UI to view pictures in a data set
+%      Alan Schoen, 2014
+%
 %      GUIEXPLORESET, by itself, creates a new GUIEXPLORESET or raises the existing
 %      singleton*.
 %

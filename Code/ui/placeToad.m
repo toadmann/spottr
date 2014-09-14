@@ -1,5 +1,8 @@
 function varargout = placeToad(varargin)
 % PLACETOAD MATLAB code for placeToad.fig
+%      UI for placing the toad shape on a picture
+%      Alan Schoen, 2014
+%
 %      PLACETOAD, by itself, creates a new PLACETOAD or raises the existing
 %      singleton*.
 %
@@ -286,10 +289,7 @@ else
 end
 
 handles.quality = quality;
-
-
 reset_problem(handles);
-
 set(handles.radiobutton_seg_spots,'Value',true);
 
 if ~mark_done(handles)
