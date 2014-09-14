@@ -1,5 +1,10 @@
+% searchLimited(primary_codes, database_codes, progress)
+% Do a limited search through pictures
+% INPUT
+%   primary_codes: list of pictures to search against database
+%   database_codes: list of pictures in database to search
+%   progress: matrix inidcating which pairs have already been compared
 function [corrs,progress] = searchLimited(primary_codes, database_codes, progress)
-
 if nargin<3
     progress = false(length(primary_codes),length(database_codes));
 end
@@ -31,27 +36,26 @@ setappdata(fh,'canceling',true);
 %delete(fh);
 
 function results = preload_and_compute_parallel(primary_codes, database_codes, idx, idy)
-
+data_path = getappdata(0, 'data_path');
 primary_masks = getMasks(primary_codes);
-
-
 results = zeros(1,length(idx));
 
 parfor i=1:length(idx)
     mask1 = primary_masks{idx(i)};
     code2 = database_codes{idy(i)};
     
-    corr = compare_maskcode(mask1,code2)
+    corr = compare_maskcode(mask1, code2, data_path)
     
     results(i) = corr;
 end
 
-function corr = compare_codecode(code1,code2)
-mask1 = getMask(code1);
-mask2 = getMask(code2);
+function corr = compare_codecode(code1, code2, data_path)
+mask1 = getMaskPar(code1, data_path);
+mask2 = getMaskPar(code2, data_path);
 [~, ~, corr,~] = jiggle_mask(mask1,mask2);
 
 
-function corr = compare_maskcode(mask1,code2)
-mask2 = getMask(code2);
+function corr = compare_maskcode(mask1, code2, data_path)
+mask2 = getMaskPar(code2, data_path);
 [~, ~, corr,~] = jiggle_mask(mask1,mask2);
+
