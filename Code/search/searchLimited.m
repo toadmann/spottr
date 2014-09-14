@@ -1,5 +1,7 @@
 % searchLimited(primary_codes, database_codes, progress)
 % Do a limited search through pictures
+% This is the ONLY function that is allowed to use parfor
+%
 % INPUT
 %   primary_codes: list of pictures to search against database
 %   database_codes: list of pictures in database to search
