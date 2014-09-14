@@ -94,7 +94,9 @@ for i=1:length(codes)
 end
 
 ind = get(handles.list_pictures, 'Value');
-set(handles.list_pictures,'Value',min(ind, length(box_contents)));
+ind = min(ind, length(box_contents));
+ind = max(ind, 1);
+set(handles.list_pictures,'Value', ind);
 set(handles.list_pictures,'UserData',codes);
 set(handles.list_pictures,'String',box_contents);
 set(handles.list_pictures,'Max',length(box_contents));

@@ -1,9 +1,15 @@
 
-projectpath = pwd;
-setappdata(0,'project_path',projectpath);
-setappdata(0,'data_path',[projectpath filesep 'Data']);
+project_path = pwd;
+data_path = [projectpath filesep 'Data'];
 
-addpath(genpath([projectpath filesep 'Code']));
+if ~exist(data_path,'dir')
+   mkdir(data_path);
+end
+
+setappdata(0,'project_path',project_path);
+setappdata(0,'data_path',data_path);
+
+addpath(genpath([project_path filesep 'Code']));
 
 all_sets = getAllSets();
 setappdata(0,'all_sets',all_sets);
