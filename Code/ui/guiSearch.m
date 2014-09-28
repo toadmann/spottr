@@ -25,7 +25,7 @@ function varargout = guiSearch(varargin)
 
 % Edit the above text to modify the response to help guiSearch
 
-% Last Modified by GUIDE v2.5 14-May-2012 03:23:15
+% Last Modified by GUIDE v2.5 28-Sep-2014 16:57:40
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
