@@ -2,4 +2,17 @@ Prints Charming / FoTo Spottr
 
 Software for identifying toads!!
 
+Basic instructions:
+1.  Open matlab and move to the main Toads directory
+2.  Run initialize.m
+3.  Run guiChooseSet to open the user interface
+4.  Create a new set, enter the information
+5.  Select your set and click "This one!"
+6.  Add pictures
+7.  Mark pictures
+8.  Click "Search/Match" to begin finding matches
+9.  Choose the scope of the search "just this set" or "last x years"
+10.  Click search to begin
+11.  Review matches in "Possible Matches" box.  click match to confirm, or fail if they don't really match.  The score on the left is a good indicator of the quality of the match.
+
 Alan Schoen, 2014
