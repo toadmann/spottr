@@ -2,17 +2,30 @@ Prints Charming / FoTo Spottr
 
 Software for identifying toads!!
 
-Basic instructions:
-1.  Open matlab and move to the main Toads directory
-2.  Run initialize.m
-3.  Run guiChooseSet to open the user interface
-4.  Create a new set, enter the information
-5.  Select your set and click "This one!"
-6.  Add pictures
-7.  Mark pictures
-8.  Click "Search/Match" to begin finding matches
-9.  Choose the scope of the search "just this set" or "last x years"
-10.  Click search to begin
-11.  Review matches in "Possible Matches" box.  click match to confirm, or fail if they don't really match.  The score on the left is a good indicator of the quality of the match.
+Getting Started:
+A. Preminaries
+1) Download and install MATLAB
+2) Create a directory on your computer called "Fotospottr"
 
-Alan Schoen, 2014
+B. Download Fotospottr
+1) Find Fotospottr software at: https://github.com/toadmann/spottr
+2) Choose "Download Zip" and place it in your Fotospottr directory
+3) Open the zip file and transfer the subdirectory "spottr-master" and all its contents into your Fotospottr directory.
+
+C) In MATLAB
+1. Open MATLAB
+2. Go to the "spottr-master" directory and run initialize.m
+3. Type "guiChooseSet" into the terminal and press enter.  This will open a window so you can begin using Fotospottr.
+
+D) Using Fotospottr
+This download includes a set of example pictures to let you test out the software.  Some of the pictures match each other, so you can see how the software works.  The first four pictures in the list are already marked, and you can mark the rest if you want.
+1. Select "Examples" and click "This one!"
+2. Click "Mark" to mark a picture (optional)
+    a) The marking interface has two parts: the "Align" step and the "Segment" step.  You must complete both steps before you can search a picture.
+    b) use the align tool to outline the animal. First click on the rear left corner of the head. A blue outline will appear. Move the rear right corner of the head and click. A blue polygon will appear to represent the toad's back. Move to the cloaca of the animal (or as close as you can on the midline), and click.  Most of the spots should be within the blue polygon.
+    c) Click "Segment" in the right panel to open the segment tool. This step creates a spot pattern to search against the database.  Spottr will try to find spots automatically, and it will highlight the spots in bright green.  You can adjust the sensitivity of the spot finder with the slider in the right panel.  If there are false positives, adjust the slider to the right.  You may also edit spots manually. Add spots by holding down the left mouse button and tracing the spot you want to add.  Remove spots by holding the right mouse buton.  Right click on a contour to remove it.
+    d) When finished, click "save".
+4. Click "Search/Match" to begin finding matches
+    a) Choose the scope of the search: "just this set" or "last x years"
+    b) Click search and wait for the search to finish
+    c) Review matches in "Possible Matches" box. click match to confirm, or fail if they don't really match. The score on the left is a good indicator of the quality of the match.
