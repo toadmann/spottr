@@ -25,7 +25,7 @@ function varargout = guiSearch(varargin)
 
 % Edit the above text to modify the response to help guiSearch
 
-% Last Modified by GUIDE v2.5 28-Sep-2014 16:57:40
+% Last Modified by GUIDE v2.5 23-Apr-2015 13:32:39
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -95,7 +95,13 @@ else
     handles.compHand = struct('code',cell(1,0),'value',cell(1,0));
 end
 
-%gather info about other pictures
+% Initialize set box
+thisset = getSet(handles.code1);
+allsets = getAllSets;
+set(handles.list_sets, 'String', allsets);
+set(handles.list_sets, 'Value', find(strcmp(thisset,allsets)))
+
+% gather info about other pictures
 [handles.all_searchable] = getSearchList();
 
 handles = prepare_search(handles);
@@ -121,25 +127,15 @@ function varargout = guiSearch_OutputFcn(hObject, eventdata, handles)
 % Get default command line output from handles structure
 varargout{1} = handles.output;
 
+% Prepare list of photos to be searched
 function handles = prepare_search(handles)
+% get box contents
+contents = cellstr(get(handles.list_sets, 'String'));
+get(handles.list_sets, 'Value')
+setstouse = contents(get(handles.list_sets, 'Value'));
 
-if get(handles.search_thisset, 'Value')
-    parts = regexp(handles.code1,'#','split','once');
-    cset = parts{1};
-    touse = strcmp({handles.all_searchable.set}, cset);
-elseif get(handles.search_years, 'Value')
-    nyears = str2double(get(handles.nyears,'String'));
-    years = zeros(size(handles.all_searchable));
-    for i=1:length(handles.all_searchable)
-        years(i) = handles.all_searchable(i).date(1);
-    end
-    thisdate = getDates({handles.code1});
-    thisyear = thisdate{1}(1);
-    touse = (thisyear>=years)&((thisyear-years)<nyears);
-else
-    touse = true(size(handles.all_searchable));
-end
-
+% filter on sets
+touse = ismember({handles.all_searchable.set},setstouse);
 handles.to_search = {handles.all_searchable(touse).code};
 
 %exclude comparisons that have already been made
@@ -148,10 +144,8 @@ alreadydone = ismember(handles.to_search,luccodes);
 handles.to_search = handles.to_search(~alreadydone);
 
 search_message(handles);
-
 guidata(gcf,handles);
 handles = update_matchbox(handles);
-
 guidata(gcf,handles);
 
 function search_message(handles)
@@ -163,13 +157,14 @@ else
     set(handles.text_takeawhile,'String','');
 end
 
+% Update contents of list box for matches
 function handles = update_matchbox(handles)
-
 if length(handles.compLucas)<2
     set(handles.list_matches,'String',{});
     return;
 end
 
+% Sort matches, choose ones to be displayed
 [~,ord] = sort([handles.compLucas.value],'descend');
 handles.compLucas = handles.compLucas(ord);
 compLucas = handles.compLucas;
@@ -186,9 +181,7 @@ for i=1:length(topcodes)
 end
 
 set(handles.list_matches,'String',box_text);
-
 handles.matchcodes = topcodes;
-
 handles = list_matches_action(handles);
 
 
@@ -224,6 +217,7 @@ if noptions>0
     handles = showpic2(handles);
 end
 
+% Display second picture
 function handles = showpic2(handles)
 handles.img2 = loadBasePicture(handles.code2);
 imshow(handles.img2,'Parent',handles.axes2);
@@ -291,23 +285,6 @@ comps = handles.compHand;
 record_path = getPath(handles.code1);
 save([record_path filesep 'compHand.mat'],'comps');
 
-
-function nyears_Callback(hObject, eventdata, handles)
-handles = prepare_search(handles);
-guidata(hObject,handles);
-
-% --- Executes during object creation, after setting all properties.
-function nyears_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to nyears (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
 % --- Executes on button press in button_search.
 function button_search_Callback(hObject, eventdata, handles)
 %THERE IS A PROBLEM HERE
@@ -337,48 +314,36 @@ setappdata(fh,'canceling',true);
 %delete(fh);
 
 
-%display id on first picture
+% displays id on first picture
 function handles = displayid1(handles)
 if isfield(handles,'ax1text')&&ishandle(handles.ax1text)
     delete(handles.ax1text);
     handles.ax1text = [];
 end
-
 photodata = load([getPath(handles.code1) filesep 'photodata.mat']);
 toadid = photodata.toadid;
-
 if toadid > 0
     set(handles.axes1,'Units','inches');
     axpos = get(handles.axes1,'position');
     handles.ax1text = text(0,axpos(4)-0.15,[photodata.toadidset '-' num2str(toadid)],'Parent',handles.axes1,'color','w','FontSize',26,'Units','inches');
 end
 
-%display id on second picture
+% displays  id on second picture
 function handles = displayid2(handles)
 if isfield(handles,'ax2text')&&ishandle(handles.ax2text)
     delete(handles.ax2text);
     handles.ax2text = [];
 end
-
 if isfield(handles,'code2');
-
     photodata = load([getPath(handles.code2) filesep 'photodata.mat']);
-    toadid = photodata.toadid;
-    
+    toadid = photodata.toadid; 
     if toadid > 0
         set(handles.axes2,'Units','inches');
         axpos = get(handles.axes2,'position');
         axes(handles.axes2);
         handles.ax2text = text(0,axpos(4)-0.15,[photodata.toadidset '-' num2str(toadid)],'Color','w','FontSize',26,'Units','inches');
     end
-
 end
-
-% --- Executes when selected object is changed in search_panel.
-function search_panel_SelectionChangeFcn(hObject, eventdata, handles)
-handles = prepare_search(handles);
-guidata(hObject,handles);
-
 
 % --- Executes on button press in button_newtoad.
 function button_newtoad_Callback(hObject, eventdata, handles)
@@ -413,4 +378,26 @@ end
 
 if any([handles.compHand.value])
     handles.matched_handle = text(0,0.3,'(Matched!)','Parent',handles.axes1,'color','r','FontSize',26,'Units','inches');
+end
+
+
+% --- Executes on selection change in list_sets.
+function list_sets_Callback(hObject, eventdata, handles)
+% hObject    handle to list_sets (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+handles = prepare_search(handles);
+guidata(hObject,handles);
+
+
+% --- Executes during object creation, after setting all properties.
+function list_sets_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to list_sets (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: listbox controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
 end
