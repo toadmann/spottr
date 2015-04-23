@@ -65,14 +65,13 @@ if isempty(set_name)
     error('Please specify a data set "setappdata(0,''current_set'',__SET_NAME__)"');
 end
 handles.set_name = set_name;
-
 handles = update_box(handles);
 
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes guiExploreSet wait for user response (see UIRESUME)
-% uiwait(handles.figure1);
+list_pictures_Callback(handles.list_pictures, [], handles)
+
 
 %update the box
 function handles = update_box(handles)
@@ -118,32 +117,17 @@ varargout{1} = handles.output;
 
 % --- Executes on selection change in list_pictures.
 function list_pictures_Callback(hObject, eventdata, handles)
-% hObject    handle to list_pictures (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: contents = cellstr(get(hObject,'String')) returns list_pictures contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from list_pictures
-
 group1 = [handles.button_add,handles.button_mark,handles.button_matches];
 group2 = [handles.button_info,handles.button_delete];
-
 boxcodes = get(hObject,'UserData');
 codes = boxcodes(get(hObject,'Value'));
-
-
-
 if length(codes)==1
     code = codes{1};
     set([group1,group2],'Enable','on');
-    
     pic = loadBasePicture(code);
-
     imshow(pic,'Parent',handles.axes1);
-
     handles.code = code;
     guidata(hObject,handles);
-    
 elseif length(codes)>1
     set([group1,group2],'Enable','off');
 else
