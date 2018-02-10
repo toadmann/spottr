@@ -207,7 +207,7 @@ double getintensity_mindex2(int x, int y, int sizx, int sizy, double *I) {
     return I[y*sizx+x];
 }
 
-__inline double interpolate_2d_linear_gray(double Tlocalx, double Tlocaly, int *Isize, double *Iin) {
+double interpolate_2d_linear_gray(double Tlocalx, double Tlocaly, int *Isize, double *Iin) {
     /* Linear interpolation variables */
     int xBas0, xBas1, yBas0, yBas1;
     double perc[4]={0, 0, 0, 0};
@@ -243,7 +243,7 @@ __inline double interpolate_2d_linear_gray(double Tlocalx, double Tlocaly, int *
     return color[0]*perc[0]+color[1]*perc[1]+color[2]*perc[2]+color[3]*perc[3];
 }
 
-__inline double interpolate_2d_cubic_gray(double Tlocalx, double Tlocaly, int *Isize, double *Iin) {
+double interpolate_2d_cubic_gray(double Tlocalx, double Tlocaly, int *Isize, double *Iin) {
     /* Floor of coordinate */
     double fTlocalx, fTlocaly;
     /* Zero neighbor */
