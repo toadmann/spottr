@@ -95,9 +95,6 @@ else
     handles.compHand = struct('code',cell(1,0),'value',cell(1,0));
 end
 
-%gather info about other pictures
-[handles.all_searchable] = getSearchList();
-
 handles = prepare_search(handles);
 guidata(hObject,handles);
 handles = update_matchbox(handles);
@@ -122,25 +119,27 @@ function varargout = guiSearch_OutputFcn(hObject, eventdata, handles)
 varargout{1} = handles.output;
 
 function handles = prepare_search(handles)
-
 if get(handles.search_thisset, 'Value')
-    parts = regexp(handles.code1,'#','split','once');
-    cset = parts{1};
-    touse = strcmp({handles.all_searchable.set}, cset);
+    cset = getSet(handles.code1);
+    handles.to_search = getUsableCodes(getCodes(cset));
+
 elseif get(handles.search_years, 'Value')
     nyears = str2double(get(handles.nyears,'String'));
-    years = zeros(size(handles.all_searchable));
-    for i=1:length(handles.all_searchable)
-        years(i) = handles.all_searchable(i).date(1);
-    end
-    thisdate = getDates({handles.code1});
-    thisyear = thisdate{1}(1);
-    touse = (thisyear>=years)&((thisyear-years)<nyears);
-else
-    touse = true(size(handles.all_searchable));
-end
 
-handles.to_search = {handles.all_searchable(touse).code};
+    set_names = getAllSets();
+    set_years = cellfun(@getSetYear, set_names);
+
+    thisdate = getDates({handles.code1});
+    
+    thisyear = thisdate{1}(1);
+    minyear = thisyear - nyears + 1;
+    maxyear = thisyear;
+
+    use_sets = set_names(ismember(set_years, minyear:maxyear));
+
+    catcodes = cellfun(@getCodes, use_sets, 'UniformOutput', false);
+    handles.to_search = getUsableCodes(horzcat(catcodes{:}));
+end
 
 %exclude comparisons that have already been made
 luccodes = {handles.compLucas.code};
@@ -153,6 +152,7 @@ guidata(gcf,handles);
 handles = update_matchbox(handles);
 
 guidata(gcf,handles);
+
 
 function search_message(handles)
 msgstr = sprintf('%d comparisons remaining',length(handles.to_search));
