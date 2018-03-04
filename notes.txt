@@ -1,0 +1,41 @@
+functions to add
+
+get_selected_pics
+checks which pictures are currently selected for an operation.
+
+pic_description(pics,comparisons (optional))
+prints out the information about a picture when argument is one picture
+prints out summary of multiple pictures when argument is a list of pictures
+
+Single-toad description
+part1:
+Capture date: 
+ID: 
+Sex:
+Data set:
+part2
+xx/xx comparisons precomputed
+xx likely lucas matches
+xx confirmed matches spanning x years with x toe-clip ID(s)
+
+part1
+Multi-toad description
+xx pictures selected
+captured from 20xx to 20xx
+Datasets represented:
+xx Population survey toads
+xx Radio tracking
+part2
+xx/xx comparisons precomputed
+
+
+
+toads = lucas_matches(pic, comparisons, kind)
+kind = 'all','unconfirmed','rejected'
+
+ID_matches
+
+confirmed_matches
+kind = 'all','unconfirmed','rejected'
+
+matches given in the form of toads: cell array of pic lists
