@@ -101,7 +101,7 @@ allsets = getAllSets;
 set(handles.list_sets, 'String', allsets);
 set(handles.list_sets, 'Value', find(strcmp(thisset,allsets)))
 
-% gather info about other pictures
+%gather info about other pictures
 [handles.all_searchable] = getSearchList();
 
 handles = prepare_search(handles);

@@ -1,6 +1,6 @@
 function string = getShortInfo(code)
 record_path = getPath(code);
-photodata = load([record_path,filesep,'photodata.mat']);
+photodata = load(fullfile(record_path,'photodata.mat'));
 
 idstr = 'No toad ID';
 if photodata.toadid>0

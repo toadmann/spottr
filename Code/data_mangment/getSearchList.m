@@ -5,8 +5,8 @@ touse = false(size(all_codes));
 for i=1:length(all_codes)
     record_path = getPath(all_codes{i});
     
-    pd = load([record_path filesep 'photodata.mat']);
-    finexists = exist([record_path filesep 'spotFin.mat'],'file');
+    pd = load(fullfile(record_path, 'photodata.mat'));
+    finexists = exist(fullfile(record_path, 'spotFin.mat'),'file');
     
     touse(i) = pd.use&&finexists;
 end
