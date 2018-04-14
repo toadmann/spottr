@@ -117,21 +117,29 @@ varargout{1} = handles.output;
 
 % --- Executes on selection change in list_pictures.
 function list_pictures_Callback(hObject, eventdata, handles)
-group1 = [handles.button_add,handles.button_mark,handles.button_matches];
+group1 = [handles.button_mark,handles.button_matches];
 group2 = [handles.button_info,handles.button_delete];
 boxcodes = get(hObject,'UserData');
-codes = boxcodes(get(hObject,'Value'));
-if length(codes)==1
-    code = codes{1};
-    set([group1,group2],'Enable','on');
-    pic = loadBasePicture(code);
-    imshow(pic,'Parent',handles.axes1);
-    handles.code = code;
-    guidata(hObject,handles);
-elseif length(codes)>1
-    set([group1,group2],'Enable','off');
+
+if isempty(boxcodes)
+    n_selected = 0;
 else
-    set([group1,group2],'Enable','off');
+    codes = boxcodes(get(hObject,'Value'));
+    n_selected = length(codes);
+end
+
+
+if n_selected == 1
+    code = codes{1};
+    set([group1,group2], 'Enable', 'on');
+    pic = loadBasePicture(code);
+    imshow(pic, 'Parent', handles.axes1);
+    handles.code = code;
+    guidata(hObject, handles);
+elseif n_selected > 1
+    set([group1, group2], 'Enable', 'off');
+else
+    set([group1, group2], 'Enable', 'off');
 end
 
 
